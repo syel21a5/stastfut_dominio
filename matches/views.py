@@ -14,7 +14,19 @@ from django.http import HttpResponse
 def debug_leagues(request):
     try:
         from .models import League, Team, Match, Season, LeagueStanding
+        from django.conf import settings
+        import os
         
+        # Helper to safely get DB info
+        db_settings = settings.DATABASES['default']
+        db_info = {
+            'ENGINE': db_settings.get('ENGINE'),
+            'NAME': db_settings.get('NAME'),
+            'USER': db_settings.get('USER'),
+            'HOST': db_settings.get('HOST'),
+            'PORT': db_settings.get('PORT'),
+        }
+
         # Seeding Logic triggered by button
         if request.method == "POST" and request.POST.get('action') == 'seed':
             
@@ -82,46 +94,84 @@ def debug_leagues(request):
 
             return HttpResponse("<h1>Dados Completos Semeados! (Ligas, Times, Jogos, Tabela)</h1><p><a href='/debug-leagues/'>Voltar</a></p>")
 
-        # Display Logic
-        leagues = League.objects.all()
-        teams = Team.objects.all()
-        matches = Match.objects.all().order_by('-date')
-        standings = LeagueStanding.objects.all()
-
-        html = "<h1>Debug: Banco de Dados Completo</h1>"
+        # Display Logic - INSPECTOR MODE
         
-        html += "<h2>Ligas</h2><ul>"
-        for l in leagues:
-            slug = l.name.replace(' ', '-').lower()
-            html += f"<li>{l.name} ({l.country}) | Slug: {slug}</li>"
-        html += "</ul>"
+        # Counts
+        counts = {
+            'leagues': League.objects.count(),
+            'teams': Team.objects.count(),
+            'matches': Match.objects.count(),
+            'standings': LeagueStanding.objects.count(),
+            'seasons': Season.objects.count(),
+        }
 
-        html += "<h2>Times</h2><ul>"
-        for t in teams:
-            html += f"<li>{t.name} ({t.league.name})</li>"
-        html += "</ul>"
+        # Samples
+        leagues = League.objects.all()[:20]
+        teams = Team.objects.all()[:20]
+        matches = Match.objects.all().order_by('-date')[:20]
+        standings = LeagueStanding.objects.all()[:20]
 
-        html += "<h2>Partidas</h2><ul>"
-        for m in matches:
-            html += f"<li>{m.date}: {m.home_team} vs {m.away_team} [{m.status}] (Season: {m.season})</li>"
-        html += "</ul>"
-
-        html += "<h2>Tabela (Standings)</h2><ul>"
-        for s in standings:
-            html += f"<li>{s.league.name} - {s.team.name}: Pos {s.position}, Pts {s.points}</li>"
-        html += "</ul>"
+        html = f"""
+        <style>
+            body {{ font-family: sans-serif; padding: 20px; line-height: 1.6; }}
+            h1, h2 {{ color: #333; border-bottom: 2px solid #eee; padding-bottom: 10px; }}
+            .card {{ background: #f9f9f9; padding: 15px; margin-bottom: 20px; border: 1px solid #ddd; border-radius: 5px; }}
+            table {{ width: 100%; border-collapse: collapse; margin-top: 10px; }}
+            th, td {{ text-align: left; padding: 8px; border-bottom: 1px solid #ddd; }}
+            th {{ background-color: #f2f2f2; }}
+            .warning {{ color: red; font-weight: bold; }}
+            .success {{ color: green; font-weight: bold; }}
+        </style>
         
-        # Form to trigger seeding
-        html += """
-            <hr>
+        <h1>🕵️ Database Inspector (Prova dos Nove)</h1>
+        
+        <div class="card">
+            <h2>🔌 Configuração de Conexão (settings.py)</h2>
+            <p>Verifique se estes dados batem com o banco onde você importou os dados reais:</p>
+            <ul>
+                <li><strong>ENGINE:</strong> {db_info['ENGINE']}</li>
+                <li><strong>NAME (Banco):</strong> {db_info['NAME']}</li>
+                <li><strong>USER:</strong> {db_info['USER']}</li>
+                <li><strong>HOST:</strong> {db_info['HOST']}</li>
+                <li><strong>PORT:</strong> {db_info['PORT']}</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>📊 Estatísticas (Contagem de Registros)</h2>
+            <ul>
+                <li><strong>Ligas:</strong> {counts['leagues']}</li>
+                <li><strong>Times:</strong> {counts['teams']}</li>
+                <li><strong>Partidas (Matches):</strong> {counts['matches']}</li>
+                <li><strong>Tabela (Standings):</strong> {counts['standings']}</li>
+                <li><strong>Temporadas:</strong> {counts['seasons']}</li>
+            </ul>
+            { "<p class='warning'>⚠️ Se os números estiverem baixos (ex: < 10), o Django NÃO está vendo seus dados reais!</p>" if counts['matches'] < 10 else "<p class='success'>✅ Parece que temos muitos dados! O problema pode ser filtro (ano/season).</p>" }
+        </div>
+
+        <h2>Ligas (Primeiras 20)</h2>
+        <table>
+            <tr><th>ID</th><th>Nome</th><th>Slug (Calculado)</th></tr>
+            {''.join(f"<tr><td>{l.id}</td><td>{l.name} ({l.country})</td><td>{l.name.replace(' ', '-').lower()}</td></tr>" for l in leagues)}
+        </table>
+
+        <h2>Partidas Recentes (Primeiras 20)</h2>
+        <table>
+            <tr><th>Data</th><th>Casa</th><th>Fora</th><th>Placar</th><th>Status</th><th>Season</th></tr>
+            {''.join(f"<tr><td>{m.date}</td><td>{m.home_team}</td><td>{m.away_team}</td><td>{m.home_score}x{m.away_score}</td><td>{m.status}</td><td>{m.season}</td></tr>" for m in matches)}
+        </table>
+        
+        <div class="card">
+             <h3>🔧 Ferramentas</h3>
             <form method="POST">
                 <input type="hidden" name="action" value="seed">
                 <input type="hidden" name="csrfmiddlewaretoken" value="">
-                <button type="submit" style="padding: 10px 20px; background: green; color: white; font-size: 16px; cursor: pointer;">
-                    CRIAR DADOS COMPLETOS (SEED)
+                <button type="submit" style="padding: 10px 20px; background: #666; color: white; font-size: 14px; cursor: pointer;">
+                    (Re)Criar Dados de Teste (Seed)
                 </button>
-                <p><small>Clique para gerar tabela e jogos.</small></p>
+                <small>Use apenas se o banco estiver vazio.</small>
             </form>
+        </div>
         """
         
         return HttpResponse(html)
