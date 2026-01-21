@@ -12,60 +12,64 @@ import json
 from django.http import HttpResponse
 
 def debug_leagues(request):
-    # Seeding Logic triggered by button
-    if request.method == "POST" and request.POST.get('action') == 'seed':
-        from matches.models import League, Team, Match
-        from datetime import datetime, timedelta
-        
-        # 1. Create Leagues
-        premier, _ = League.objects.get_or_create(name="Premier League", country="Inglaterra")
-        brasileirao, _ = League.objects.get_or_create(name="Brasileirão", country="Brasil")
-        
-        # 2. Create Teams
-        arsenal, _ = Team.objects.get_or_create(name="Arsenal", league=premier)
-        city, _ = Team.objects.get_or_create(name="Man City", league=premier)
-        liverpool, _ = Team.objects.get_or_create(name="Liverpool", league=premier)
-        palmeiras, _ = Team.objects.get_or_create(name="Palmeiras", league=brasileirao)
-        flamengo, _ = Team.objects.get_or_create(name="Flamengo", league=brasileirao)
-        
-        # 3. Create Matches
-        now = timezone.now()
-        Match.objects.get_or_create(league=premier, home_team=arsenal, away_team=city, date=now + timedelta(hours=2))
-        Match.objects.get_or_create(league=brasileirao, home_team=palmeiras, away_team=flamengo, date=now + timedelta(hours=5))
-        
-        return HttpResponse("<h1>Dados Semeados com Sucesso!</h1><p><a href='/debug-leagues/'>Voltar</a></p>")
+    try:
+        # Seeding Logic triggered by button
+        if request.method == "POST" and request.POST.get('action') == 'seed':
+            from matches.models import League, Team, Match
+            from datetime import datetime, timedelta
+            
+            # 1. Create Leagues
+            premier, _ = League.objects.get_or_create(name="Premier League", country="Inglaterra")
+            brasileirao, _ = League.objects.get_or_create(name="Brasileirão", country="Brasil")
+            
+            # 2. Create Teams
+            arsenal, _ = Team.objects.get_or_create(name="Arsenal", league=premier)
+            city, _ = Team.objects.get_or_create(name="Man City", league=premier)
+            liverpool, _ = Team.objects.get_or_create(name="Liverpool", league=premier)
+            palmeiras, _ = Team.objects.get_or_create(name="Palmeiras", league=brasileirao)
+            flamengo, _ = Team.objects.get_or_create(name="Flamengo", league=brasileirao)
+            
+            # 3. Create Matches
+            now = timezone.now()
+            Match.objects.get_or_create(league=premier, home_team=arsenal, away_team=city, date=now + timedelta(hours=2))
+            Match.objects.get_or_create(league=brasileirao, home_team=palmeiras, away_team=flamengo, date=now + timedelta(hours=5))
+            
+            return HttpResponse("<h1>Dados Semeados com Sucesso!</h1><p><a href='/debug-leagues/'>Voltar</a></p>")
 
-    # Display Logic
-    leagues = League.objects.all()
-    html = "<h1>Debug: Ligas no Banco de Dados</h1>"
-    html += "<p>Se esta lista estiver vazia, clique no botão abaixo para criar os dados iniciais.</p>"
-    
-    html += "<ul>"
-    count = 0
-    for l in leagues:
-        count += 1
-        slug_provavel = l.name.replace(' ', '-').lower()
-        html += f"<li>ID: {l.id} | <strong>Nome Original: '{l.name}'</strong> | Slug (para URL): '{slug_provavel}'</li>"
-    html += "</ul>"
-    
-    if count == 0:
-        html += "<p style='color:red; font-weight:bold;'>NENHUMA LIGA ENCONTRADA!</p>"
-    
-    # Form to trigger seeding
-    html += """
-        <hr>
-        <form method="POST">
-            <input type="hidden" name="action" value="seed">
-            <input type="hidden" name="csrfmiddlewaretoken" value="">
-            <button type="submit" style="padding: 10px 20px; background: green; color: white; font-size: 16px; cursor: pointer;">
-                CRIAR DADOS DE TESTE (SEED)
-            </button>
-            <p><small>Nota: O CSRF pode falhar se não configurado, mas tente.</small></p>
-        </form>
-    """
-    
-    # CSRF Exemption (quick fix for debug view only)
-    return HttpResponse(html)
+        # Display Logic
+        leagues = League.objects.all()
+        html = "<h1>Debug: Ligas no Banco de Dados</h1>"
+        html += "<p>Se esta lista estiver vazia, clique no botão abaixo para criar os dados iniciais.</p>"
+        
+        html += "<ul>"
+        count = 0
+        for l in leagues:
+            count += 1
+            slug_provavel = l.name.replace(' ', '-').lower()
+            html += f"<li>ID: {l.id} | <strong>Nome Original: '{l.name}'</strong> | Slug (para URL): '{slug_provavel}'</li>"
+        html += "</ul>"
+        
+        if count == 0:
+            html += "<p style='color:red; font-weight:bold;'>NENHUMA LIGA ENCONTRADA!</p>"
+        
+        # Form to trigger seeding
+        html += """
+            <hr>
+            <form method="POST">
+                <input type="hidden" name="action" value="seed">
+                <input type="hidden" name="csrfmiddlewaretoken" value="">
+                <button type="submit" style="padding: 10px 20px; background: green; color: white; font-size: 16px; cursor: pointer;">
+                    CRIAR DADOS DE TESTE (SEED)
+                </button>
+                <p><small>Nota: O CSRF pode falhar se não configurado, mas tente.</small></p>
+            </form>
+        """
+        
+        # CSRF Exemption (quick fix for debug view only)
+        return HttpResponse(html)
+    except Exception as e:
+        import traceback
+        return HttpResponse(f"<h1>Erro Interno (500) - Detalhes:</h1><pre>{traceback.format_exc()}</pre>")
 
 from django.views.decorators.csrf import csrf_exempt
 
