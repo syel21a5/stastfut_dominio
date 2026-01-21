@@ -65,8 +65,9 @@ def debug_leagues(request):
     """
     
     # CSRF Exemption (quick fix for debug view only)
-    from django.views.decorators.csrf import csrf_exempt
     return HttpResponse(html)
+
+from django.views.decorators.csrf import csrf_exempt
 
 @csrf_exempt
 def debug_leagues_wrapper(request):
