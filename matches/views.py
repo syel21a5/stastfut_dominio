@@ -15,9 +15,6 @@ def debug_leagues(request):
     try:
         # Seeding Logic triggered by button
         if request.method == "POST" and request.POST.get('action') == 'seed':
-            from matches.models import League, Team, Match
-            from datetime import datetime, timedelta
-            
             # 1. Create Leagues
             premier, _ = League.objects.get_or_create(name="Premier League", country="Inglaterra")
             brasileirao, _ = League.objects.get_or_create(name="Brasileirão", country="Brasil")
