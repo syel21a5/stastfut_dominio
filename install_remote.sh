@@ -10,6 +10,7 @@ ENV_FILE=".env"
 COMPOSE_FILE="docker-compose.prod.yml"
 
 echo "=== Iniciando Deploy em $(date) ==="
+echo "🔄 Verificando atualizações..."
 
 # 1. Tratamento do Arquivo Imortal (.user.ini)
 # O aaPanel cria este arquivo e o bloqueia. Precisamos desbloquear para evitar erros de permissão.
