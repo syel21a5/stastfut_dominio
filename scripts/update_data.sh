@@ -49,7 +49,11 @@ else
     echo "Skipping update_live_matches (API) to save quota. Pass --api to force run." >> "$LOG_FILE"
 fi
 
-# 3. Recalculate Standings (CRITICAL: Tables won't update without this)
+# 3. Fix Match Statuses (Ensure matches with scores are marked as Finished)
+echo "Fixing match statuses..." >> "$LOG_FILE"
+python manage.py fix_match_status >> "$LOG_FILE" 2>&1
+
+# 4. Recalculate Standings (CRITICAL: Tables won't update without this)
 echo "Recalculating standings..." >> "$LOG_FILE"
 python manage.py recalculate_standings --league_name "Premier League" >> "$LOG_FILE" 2>&1
 
