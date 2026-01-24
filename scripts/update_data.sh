@@ -49,5 +49,9 @@ else
     echo "Skipping update_live_matches (API) to save quota. Pass --api to force run." >> "$LOG_FILE"
 fi
 
+# 3. Recalculate Standings (CRITICAL: Tables won't update without this)
+echo "Recalculating standings..." >> "$LOG_FILE"
+python manage.py recalculate_standings --league_name "Premier League" >> "$LOG_FILE" 2>&1
+
 echo "Update finished at $(date)" >> "$LOG_FILE"
 echo "========================================" >> "$LOG_FILE"
