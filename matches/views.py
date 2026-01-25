@@ -377,21 +377,24 @@ class LeagueDetailView(DetailView):
                 # --- NEW: POPULATE TEAM STATS (Home/Away Tables) ---
                 t_stats = team_stats[team_id]
                 for m in team_matches:
+                    home_score = m.home_score or 0
+                    away_score = m.away_score or 0
+                    
                     if m.home_team_id == team_id:
                         s = t_stats['home']
                         s['gp'] += 1
-                        s['gf'] += m.home_score
-                        s['ga'] += m.away_score
-                        if m.home_score > m.away_score: s['w'] += 1; s['pts'] += 3
-                        elif m.home_score == m.away_score: s['d'] += 1; s['pts'] += 1
+                        s['gf'] += home_score
+                        s['ga'] += away_score
+                        if home_score > away_score: s['w'] += 1; s['pts'] += 3
+                        elif home_score == away_score: s['d'] += 1; s['pts'] += 1
                         else: s['l'] += 1
                     else:
                         s = t_stats['away']
                         s['gp'] += 1
-                        s['gf'] += m.away_score
-                        s['ga'] += m.home_score
-                        if m.away_score > m.home_score: s['w'] += 1; s['pts'] += 3
-                        elif m.away_score == m.home_score: s['d'] += 1; s['pts'] += 1
+                        s['gf'] += away_score
+                        s['ga'] += home_score
+                        if away_score > home_score: s['w'] += 1; s['pts'] += 3
+                        elif away_score == home_score: s['d'] += 1; s['pts'] += 1
                         else: s['l'] += 1
 
                 form_5 = []
@@ -1095,8 +1098,8 @@ class TeamDetailView(DetailView):
             is_home = m.home_team == team
             cat = 'home' if is_home else 'away'
             
-            gf = m.home_score if is_home else m.away_score
-            ga = m.away_score if is_home else m.home_score
+            gf = (m.home_score if is_home else m.away_score) or 0
+            ga = (m.away_score if is_home else m.home_score) or 0
             
             # HT Scores (Assume None=0 if missing, though typically present)
             ht_gf = (m.ht_home_score if is_home else m.ht_away_score) or 0
@@ -1395,8 +1398,8 @@ class TeamDetailView(DetailView):
                     is_home = m.home_team == league_team
                     cat = 'home' if is_home else 'away'
                     
-                    gf = m.home_score if is_home else m.away_score
-                    ga = m.away_score if is_home else m.home_score
+                    gf = (m.home_score if is_home else m.away_score) or 0
+                    ga = (m.away_score if is_home else m.home_score) or 0
                     result = 'W' if gf > ga else ('D' if gf == ga else 'L')
                     
                     for k in [cat, 'total']:

@@ -4,7 +4,7 @@
 {% load matches_extras %}
 
 {% block content %}
-<link rel="stylesheet" href="{% static 'matches/css/team_detail.css' %}">
+
 
 <div class="main-container">
     <!-- Header Info -->
@@ -134,7 +134,8 @@
                                     <div class="ppg-line js-width" data-width="{% widthratio stats.home.ppg 3 100 %}">
                                     </div>
                                 </div>
-                                <span style="font-weight: bold; width: 45px; text-align: right;">{{ stats.home.ppg|floatformat:2 }}</span>
+                                <span style="font-weight: bold; width: 45px; text-align: right;">{{
+                                    stats.home.ppg|floatformat:2 }}</span>
                             </div>
                             <div style="display: flex; align-items: center; margin-bottom: 8px;">
                                 <span style="width: 80px;">PPG (Away):</span>
@@ -142,7 +143,8 @@
                                     <div class="ppg-line js-width" data-width="{% widthratio stats.away.ppg 3 100 %}">
                                     </div>
                                 </div>
-                                <span style="font-weight: bold; width: 45px; text-align: right;">{{ stats.away.ppg|floatformat:2 }}</span>
+                                <span style="font-weight: bold; width: 45px; text-align: right;">{{
+                                    stats.away.ppg|floatformat:2 }}</span>
                             </div>
                             <div style="display: flex; align-items: center; margin-bottom: 8px; margin-top: 15px;">
                                 <span style="width: 80px; font-weight: bold;">PPG (Total):</span>
@@ -150,7 +152,8 @@
                                     <div class="ppg-line js-width" data-width="{% widthratio stats.total.ppg 3 100 %}">
                                     </div>
                                 </div>
-                                <span style="font-weight: bold; font-size: 1.1rem; width: 45px; text-align: right;">{{ stats.total.ppg|floatformat:2 }}</span>
+                                <span style="font-weight: bold; font-size: 1.1rem; width: 45px; text-align: right;">{{
+                                    stats.total.ppg|floatformat:2 }}</span>
                             </div>
                         </div>
                     </div>
@@ -183,7 +186,8 @@
                                     <td style="text-align: right; font-weight: bold; padding-right: 10px;">Points per
                                         Game</td>
                                     <td style="text-align: center;">{{ relative_form.ppg.all }}</td>
-                                    <td style="text-align: center; color: #0000ff; font-weight: bold;">{{ relative_form.ppg.l8 }}</td>
+                                    <td style="text-align: center; color: #0000ff; font-weight: bold;">{{
+                                        relative_form.ppg.l8 }}</td>
                                     <td style="text-align: center;"
                                         class="{% if relative_form.ppg.diff > 0 %}diff-pos{% elif relative_form.ppg.diff < 0 %}diff-neg{% endif %}">
                                         {% if relative_form.ppg.diff > 0 %}+{% endif %}{{ relative_form.ppg.diff }}%
@@ -195,7 +199,8 @@
                                     <td style="text-align: center; color: #0000ff;">{{ relative_form.avg_gf.l8 }}</td>
                                     <td style="text-align: center;"
                                         class="{% if relative_form.avg_gf.diff > 0 %}diff-pos{% elif relative_form.avg_gf.diff < 0 %}diff-neg{% endif %}">
-                                        {% if relative_form.avg_gf.diff > 0 %}+{% endif %}{{ relative_form.avg_gf.diff }}%
+                                        {% if relative_form.avg_gf.diff > 0 %}+{% endif %}{{ relative_form.avg_gf.diff
+                                        }}%
                                     </td>
                                 </tr>
                                 <tr>
@@ -204,7 +209,8 @@
                                     <td style="text-align: center; color: #0000ff;">{{ relative_form.avg_ga.l8 }}</td>
                                     <td style="text-align: center;"
                                         class="{% if relative_form.avg_ga.diff > 0 %}diff-neg{% elif relative_form.avg_ga.diff < 0 %}diff-pos{% endif %}">
-                                        {% if relative_form.avg_ga.diff > 0 %}+{% endif %}{{ relative_form.avg_ga.diff }}%
+                                        {% if relative_form.avg_ga.diff > 0 %}+{% endif %}{{ relative_form.avg_ga.diff
+                                        }}%
                                     </td>
                                 </tr>
                             </tbody>
@@ -353,7 +359,8 @@
                                             {{ stats|get_item:cat|get_item:'win_pct'|floatformat:0 }}%
                                         </span>
                                     </td>
-                                    <td style="text-align: center;"><span>{{ league_avg|get_item:cat|get_item:'win_pct'|floatformat:0 }}</span>%</td>
+                                    <td style="text-align: center;"><span>{{
+                                            league_avg|get_item:cat|get_item:'win_pct'|floatformat:0 }}</span>%</td>
                                 </tr>
                                 <tr style="background: #f9f9f9;">
                                     <td colspan="3" style="padding: 3px 10px;">
@@ -377,8 +384,10 @@
                                 <!-- % Draws -->
                                 <tr>
                                     <td style="text-align: left; padding-left: 10px;">% Draws</td>
-                                    <td style="text-align: center;"><span>{{ stats|get_item:cat|get_item:'draw_pct'|floatformat:0 }}</span>%</td>
-                                    <td style="text-align: center;"><span>{{ league_avg|get_item:cat|get_item:'draw_pct'|floatformat:0 }}</span>%</td>
+                                    <td style="text-align: center;"><span>{{
+                                            stats|get_item:cat|get_item:'draw_pct'|floatformat:0 }}</span>%</td>
+                                    <td style="text-align: center;"><span>{{
+                                            league_avg|get_item:cat|get_item:'draw_pct'|floatformat:0 }}</span>%</td>
                                 </tr>
                                 <tr style="background: #f9f9f9;">
                                     <td colspan="3" style="padding: 3px 10px;">
@@ -408,7 +417,8 @@
                                             {{ stats|get_item:cat|get_item:'loss_pct'|floatformat:0 }}%
                                         </span>
                                     </td>
-                                    <td style="text-align: center;"><span>{{ league_avg|get_item:cat|get_item:'loss_pct'|floatformat:0 }}</span>%</td>
+                                    <td style="text-align: center;"><span>{{
+                                            league_avg|get_item:cat|get_item:'loss_pct'|floatformat:0 }}</span>%</td>
                                 </tr>
                                 <tr style="background: #f9f9f9;">
                                     <td colspan="3" style="padding: 3px 10px;">
@@ -438,7 +448,8 @@
                                             {{ stats|get_item:cat|get_item:'avg_gf' }}
                                         </span>
                                     </td>
-                                    <td style="text-align: center;"><span>{{ league_avg|get_item:cat|get_item:'avg_gf' }}</span></td>
+                                    <td style="text-align: center;"><span>{{ league_avg|get_item:cat|get_item:'avg_gf'
+                                            }}</span></td>
                                 </tr>
                                 <tr style="background: #f9f9f9;">
                                     <td colspan="3" style="padding: 3px 10px;">
@@ -468,7 +479,8 @@
                                             {{ stats|get_item:cat|get_item:'avg_ga' }}
                                         </span>
                                     </td>
-                                    <td style="text-align: center;"><span>{{ league_avg|get_item:cat|get_item:'avg_ga' }}</span></td>
+                                    <td style="text-align: center;"><span>{{ league_avg|get_item:cat|get_item:'avg_ga'
+                                            }}</span></td>
                                 </tr>
                                 <tr style="background: #f9f9f9;">
                                     <td colspan="3" style="padding: 3px 10px;">
@@ -498,7 +510,8 @@
                                             {{ rates|get_item:cat|get_item:'cs_pct' }}%
                                         </span>
                                     </td>
-                                    <td style="text-align: center;"><span>{{ league_avg|get_item:cat|get_item:'cs_pct'|floatformat:0 }}</span>%</td>
+                                    <td style="text-align: center;"><span>{{
+                                            league_avg|get_item:cat|get_item:'cs_pct'|floatformat:0 }}</span>%</td>
                                 </tr>
                                 <tr style="background: #f9f9f9;">
                                     <td colspan="3" style="padding: 3px 10px;">
@@ -528,7 +541,8 @@
                                             {{ rates|get_item:cat|get_item:'fts_pct' }}%
                                         </span>
                                     </td>
-                                    <td style="text-align: center;"><span>{{ league_avg|get_item:cat|get_item:'fts_pct'|floatformat:0 }}</span>%</td>
+                                    <td style="text-align: center;"><span>{{
+                                            league_avg|get_item:cat|get_item:'fts_pct'|floatformat:0 }}</span>%</td>
                                 </tr>
                                 <tr style="background: #f9f9f9;">
                                     <td colspan="3" style="padding: 3px 10px;">
@@ -558,7 +572,8 @@
                                             {{ league_avg|get_item:cat|get_item:'wtn_pct'|floatformat:0 }}%
                                         </span>
                                     </td>
-                                    <td style="text-align: center;"><span>{{ league_avg|get_item:cat|get_item:'wtn_pct'|floatformat:0 }}</span>%</td>
+                                    <td style="text-align: center;"><span>{{
+                                            league_avg|get_item:cat|get_item:'wtn_pct'|floatformat:0 }}</span>%</td>
                                 </tr>
                                 <tr style="background: #f9f9f9;">
                                     <td colspan="3" style="padding: 3px 10px;">
@@ -588,7 +603,8 @@
                                             {{ league_avg|get_item:cat|get_item:'ltn_pct'|floatformat:0 }}%
                                         </span>
                                     </td>
-                                    <td style="text-align: center;"><span>{{ league_avg|get_item:cat|get_item:'ltn_pct'|floatformat:0 }}</span>%</td>
+                                    <td style="text-align: center;"><span>{{
+                                            league_avg|get_item:cat|get_item:'ltn_pct'|floatformat:0 }}</span>%</td>
                                 </tr>
                                 <tr style="background: #f9f9f9;">
                                     <td colspan="3" style="padding: 3px 10px;">
@@ -618,7 +634,8 @@
                                             {{ league_avg|get_item:cat|get_item:'scored_first_pct'|floatformat:0 }}%
                                         </span>
                                     </td>
-                                    <td style="text-align: center;"><span>{{ league_avg|get_item:cat|get_item:'scored_first_pct'|floatformat:0 }}</span>%
+                                    <td style="text-align: center;"><span>{{
+                                            league_avg|get_item:cat|get_item:'scored_first_pct'|floatformat:0 }}</span>%
                                     </td>
                                 </tr>
                                 <tr style="background: #f9f9f9;">
@@ -649,7 +666,9 @@
                                             {{ league_avg|get_item:cat|get_item:'conceded_first_pct'|floatformat:0 }}%
                                         </span>
                                     </td>
-                                    <td style="text-align: center;"><span>{{ league_avg|get_item:cat|get_item:'conceded_first_pct'|floatformat:0 }}</span>%</td>
+                                    <td style="text-align: center;"><span>{{
+                                            league_avg|get_item:cat|get_item:'conceded_first_pct'|floatformat:0
+                                            }}</span>%</td>
 
                                 </tr>
                                 <tr style="background: #f9f9f9;">
@@ -674,9 +693,13 @@
                                 <!-- Average minute scored first -->
                                 <tr>
                                     <td style="text-align: left; padding-left: 10px;">Average minute scored first</td>
-                                    <td style="text-align: center;"><span>{{ league_avg|get_item:cat|get_item:'avg_min_scored_first'|floatformat:0 }}</span></td>
+                                    <td style="text-align: center;"><span>{{
+                                            league_avg|get_item:cat|get_item:'avg_min_scored_first'|floatformat:0
+                                            }}</span></td>
 
-                                    <td style="text-align: center;"><span>{{ league_avg|get_item:cat|get_item:'avg_min_scored_first'|floatformat:0 }}</span></td>
+                                    <td style="text-align: center;"><span>{{
+                                            league_avg|get_item:cat|get_item:'avg_min_scored_first'|floatformat:0
+                                            }}</span></td>
 
                                 </tr>
                                 <tr style="background: #f9f9f9;">
@@ -701,9 +724,13 @@
                                 <!-- Average minute conceded first -->
                                 <tr>
                                     <td style="text-align: left; padding-left: 10px;">Average minute conceded first</td>
-                                    <td style="text-align: center;"><span>{{ league_avg|get_item:cat|get_item:'avg_min_conceded_first'|floatformat:0 }}</span></td>
+                                    <td style="text-align: center;"><span>{{
+                                            league_avg|get_item:cat|get_item:'avg_min_conceded_first'|floatformat:0
+                                            }}</span></td>
 
-                                    <td style="text-align: center;"><span>{{ league_avg|get_item:cat|get_item:'avg_min_conceded_first'|floatformat:0 }}</span></td>
+                                    <td style="text-align: center;"><span>{{
+                                            league_avg|get_item:cat|get_item:'avg_min_conceded_first'|floatformat:0
+                                            }}</span></td>
 
                                 </tr>
                                 <tr style="background: #f9f9f9;">
@@ -761,7 +788,8 @@
                     <tbody>
                         <!-- Current Season -->
                         <tr style="font-weight: bold; background: #fff;">
-                            <td style="text-align: left; padding-left: 10px;">{{ standing.season.year|add:"-1" }}-{{ standing.season.year }}</td>
+                            <td style="text-align: left; padding-left: 10px;">{{ standing.season.year|add:"-1" }}-{{
+                                standing.season.year }}</td>
                             <td style="color: #28a745;">{{ standing.played }}</td>
                             <td>{{ standing.won }}</td>
                             <td>{{ standing.drawn }}</td>
@@ -775,7 +803,8 @@
                         <!-- Past Seasons -->
                         {% for item in past_seasons_data %}
                         <tr class="{% if forloop.counter|divisibleby:2 %}row-gray{% else %}row-white{% endif %}">
-                            <td style="text-align: left; padding-left: 10px;">{{ item.season_year|add:"-1" }}-{{ item.season_year }}</td>
+                            <td style="text-align: left; padding-left: 10px;">{{ item.season_year|add:"-1" }}-{{
+                                item.season_year }}</td>
                             <td style="color: #28a745;">{{ item.gp }}</td>
                             <td>{{ item.w }}</td>
                             <td>{{ item.d }}</td>
@@ -824,31 +853,43 @@
                     <tbody>
                         <tr style="background: #e9e9e9;">
                             <td style="text-align: right; padding-right: 15px;">Consecutive wins</td>
-                            <td class="{% if streaks.home.win != '-' %}bg-success-light{% endif %}">{{ streaks.home.win }}</td>
-                            <td class="{% if streaks.away.win != '-' %}bg-success-light{% endif %}">{{ streaks.away.win }}</td>
-                            <td class="{% if streaks.total.win != '-' %}bg-success-light{% endif %}"><strong>{{ streaks.total.win }}</strong></td>
+                            <td class="{% if streaks.home.win != '-' %}bg-success-light{% endif %}">{{ streaks.home.win
+                                }}</td>
+                            <td class="{% if streaks.away.win != '-' %}bg-success-light{% endif %}">{{ streaks.away.win
+                                }}</td>
+                            <td class="{% if streaks.total.win != '-' %}bg-success-light{% endif %}"><strong>{{
+                                    streaks.total.win }}</strong></td>
 
                         </tr>
                         <tr style="background: #e9e9e9;">
                             <td style="text-align: right; padding-right: 15px;">Consecutive draws</td>
-                            <td class="{% if streaks.home.draw != '-' %}bg-warning-light{% endif %}">{{ streaks.home.draw }}</td>
-                            <td class="{% if streaks.away.draw != '-' %}bg-warning-light{% endif %}">{{ streaks.away.draw }}</td>
-                            <td class="{% if streaks.total.draw != '-' %}bg-warning-light{% endif %}"><strong>{{ streaks.total.draw }}</strong></td>
+                            <td class="{% if streaks.home.draw != '-' %}bg-warning-light{% endif %}">{{
+                                streaks.home.draw }}</td>
+                            <td class="{% if streaks.away.draw != '-' %}bg-warning-light{% endif %}">{{
+                                streaks.away.draw }}</td>
+                            <td class="{% if streaks.total.draw != '-' %}bg-warning-light{% endif %}"><strong>{{
+                                    streaks.total.draw }}</strong></td>
 
                         </tr>
                         <tr style="background: #e9e9e9;">
                             <td style="text-align: right; padding-right: 15px;">Consecutive defeats</td>
-                            <td class="{% if streaks.home.loss != '-' %}bg-danger-light{% endif %}">{{ streaks.home.loss }}</td>
-                            <td class="{% if streaks.away.loss != '-' %}bg-danger-light{% endif %}">{{ streaks.away.loss }}</td>
-                            <td class="{% if streaks.total.loss != '-' %}bg-danger-light{% endif %}"><strong>{{ streaks.total.loss }}</strong></td>
+                            <td class="{% if streaks.home.loss != '-' %}bg-danger-light{% endif %}">{{ streaks.home.loss
+                                }}</td>
+                            <td class="{% if streaks.away.loss != '-' %}bg-danger-light{% endif %}">{{ streaks.away.loss
+                                }}</td>
+                            <td class="{% if streaks.total.loss != '-' %}bg-danger-light{% endif %}"><strong>{{
+                                    streaks.total.loss }}</strong></td>
 
                         </tr>
 
                         <tr style="background: #f9f9f9; border-top: 10px solid #fff;">
                             <td style="text-align: right; padding-right: 15px;">No win</td>
-                            <td class="{% if streaks.home.no_win != '-' %}bg-danger-light{% endif %}">{{ streaks.home.no_win }}</td>
-                            <td class="{% if streaks.away.no_win != '-' %}bg-danger-light{% endif %}">{{ streaks.away.no_win }}</td>
-                            <td class="{% if streaks.total.no_win != '-' %}bg-danger-light{% endif %}"><strong>{{ streaks.total.no_win }}</strong></td>
+                            <td class="{% if streaks.home.no_win != '-' %}bg-danger-light{% endif %}">{{
+                                streaks.home.no_win }}</td>
+                            <td class="{% if streaks.away.no_win != '-' %}bg-danger-light{% endif %}">{{
+                                streaks.away.no_win }}</td>
+                            <td class="{% if streaks.total.no_win != '-' %}bg-danger-light{% endif %}"><strong>{{
+                                    streaks.total.no_win }}</strong></td>
                         </tr>
                         <tr style="background: #f9f9f9;">
                             <td style="text-align: right; padding-right: 15px;">No draw</td>
@@ -858,39 +899,51 @@
                         </tr>
                         <tr style="background: #f9f9f9;">
                             <td style="text-align: right; padding-right: 15px;">No defeat</td>
-                            <td class="{% if streaks.home.no_defeat != '-' %}bg-success-light{% endif %}">{{ streaks.home.no_defeat }}</td>
+                            <td class="{% if streaks.home.no_defeat != '-' %}bg-success-light{% endif %}">{{
+                                streaks.home.no_defeat }}</td>
 
-                            <td class="{% if streaks.away.no_defeat != '-' %}bg-success-light{% endif %}">{{ streaks.away.no_defeat }}</td>
+                            <td class="{% if streaks.away.no_defeat != '-' %}bg-success-light{% endif %}">{{
+                                streaks.away.no_defeat }}</td>
 
-                            <td class="{% if streaks.total.no_defeat != '-' %}bg-success-light{% endif %}"><strong>{{ streaks.total.no_defeat }}</strong></td>
+                            <td class="{% if streaks.total.no_defeat != '-' %}bg-success-light{% endif %}"><strong>{{
+                                    streaks.total.no_defeat }}</strong></td>
                         </tr>
 
                         <tr style="background: #e9e9e9; border-top: 10px solid #fff;">
                             <td style="text-align: right; padding-right: 15px;">1 goal scored or more</td>
-                            <td class="{% if streaks.home.scored_1plus != '-' %}bg-success-light{% endif %}">{{ streaks.home.scored_1plus }}</td>
-                            <td class="{% if streaks.away.scored_1plus != '-' %}bg-success-light{% endif %}">{{ streaks.away.scored_1plus }}</td>
-                            <td class="{% if streaks.total.scored_1plus != '-' %}bg-success-light{% endif %}"><strong>{{ streaks.total.scored_1plus }}</strong></td>
+                            <td class="{% if streaks.home.scored_1plus != '-' %}bg-success-light{% endif %}">{{
+                                streaks.home.scored_1plus }}</td>
+                            <td class="{% if streaks.away.scored_1plus != '-' %}bg-success-light{% endif %}">{{
+                                streaks.away.scored_1plus }}</td>
+                            <td class="{% if streaks.total.scored_1plus != '-' %}bg-success-light{% endif %}"><strong>{{
+                                    streaks.total.scored_1plus }}</strong></td>
                         </tr>
                         <tr style="background: #e9e9e9;">
                             <td style="text-align: right; padding-right: 15px;">1 goal conceded or more</td>
-                            <td class="{% if streaks.home.conceded_1plus != '-' %}bg-danger-light{% endif %}">{{ streaks.home.conceded_1plus }}</td>
-                            <td class="{% if streaks.away.conceded_1plus != '-' %}bg-danger-light{% endif %}">{{ streaks.away.conceded_1plus }}</td>
+                            <td class="{% if streaks.home.conceded_1plus != '-' %}bg-danger-light{% endif %}">{{
+                                streaks.home.conceded_1plus }}</td>
+                            <td class="{% if streaks.away.conceded_1plus != '-' %}bg-danger-light{% endif %}">{{
+                                streaks.away.conceded_1plus }}</td>
                             <td class="{% if streaks.total.conceded_1plus != '-' %}bg-danger-light{% endif %}">
                                 <strong>{{ streaks.total.conceded_1plus }}</strong>
                             </td>
                         </tr>
                         <tr style="background: #e9e9e9;">
                             <td style="text-align: right; padding-right: 15px;">No goal scored</td>
-                            <td class="{% if streaks.home.no_goal_scored != '-' %}bg-danger-light{% endif %}">{{ streaks.home.no_goal_scored }}</td>
-                            <td class="{% if streaks.away.no_goal_scored != '-' %}bg-danger-light{% endif %}">{{ streaks.away.no_goal_scored }}</td>
+                            <td class="{% if streaks.home.no_goal_scored != '-' %}bg-danger-light{% endif %}">{{
+                                streaks.home.no_goal_scored }}</td>
+                            <td class="{% if streaks.away.no_goal_scored != '-' %}bg-danger-light{% endif %}">{{
+                                streaks.away.no_goal_scored }}</td>
                             <td class="{% if streaks.total.no_goal_scored != '-' %}bg-danger-light{% endif %}">
                                 <strong>{{ streaks.total.no_goal_scored }}</strong>
                             </td>
                         </tr>
                         <tr style="background: #e9e9e9;">
                             <td style="text-align: right; padding-right: 15px;">No goal conceded</td>
-                            <td class="{% if streaks.home.no_goal_conceded != '-' %}bg-success-light{% endif %}">{{ streaks.home.no_goal_conceded }}</td>
-                            <td class="{% if streaks.away.no_goal_conceded != '-' %}bg-success-light{% endif %}">{{ streaks.away.no_goal_conceded }}</td>
+                            <td class="{% if streaks.home.no_goal_conceded != '-' %}bg-success-light{% endif %}">{{
+                                streaks.home.no_goal_conceded }}</td>
+                            <td class="{% if streaks.away.no_goal_conceded != '-' %}bg-success-light{% endif %}">{{
+                                streaks.away.no_goal_conceded }}</td>
                             <td class="{% if streaks.total.no_goal_conceded != '-' %}bg-success-light{% endif %}">
                                 <strong>{{ streaks.total.no_goal_conceded }}</strong>
                             </td>
@@ -909,9 +962,12 @@
                         </tr>
                         <tr style="background: #e9e9e9; border-bottom: 2px solid #ccc;">
                             <td style="text-align: right; padding-right: 15px;">Scored at least twice</td>
-                            <td class="{% if streaks.home.scored_2plus != '-' %}bg-success-light{% endif %}">{{ streaks.home.scored_2plus }}</td>
-                            <td class="{% if streaks.away.scored_2plus != '-' %}bg-success-light{% endif %}">{{ streaks.away.scored_2plus }}</td>
-                            <td class="{% if streaks.total.scored_2plus != '-' %}bg-success-light{% endif %}"><strong>{{ streaks.total.scored_2plus }}</strong></td>
+                            <td class="{% if streaks.home.scored_2plus != '-' %}bg-success-light{% endif %}">{{
+                                streaks.home.scored_2plus }}</td>
+                            <td class="{% if streaks.away.scored_2plus != '-' %}bg-success-light{% endif %}">{{
+                                streaks.away.scored_2plus }}</td>
+                            <td class="{% if streaks.total.scored_2plus != '-' %}bg-success-light{% endif %}"><strong>{{
+                                    streaks.total.scored_2plus }}</strong></td>
                         </tr>
                     </tbody>
                 </table>
@@ -1126,13 +1182,21 @@
                         {% for match in run_in.matches|slice:":13" %}
                         <tr style="border-bottom: 1px solid #eee;">
                             <td style="color: #666; font-size: 0.75rem;">{{ match.match.date|date:"j M" }}</td>
-                            <td style="text-align: left;">{% if match.is_home %}<strong>{{ team.name }}</strong> <span style="color:#999">vs</span> {{ match.opponent.name }}{% else %}{{ match.opponent.name }} <span style="color:#999">vs</span> <strong>{{ team.name }}</strong>{% endif %}</td>
-                            <td>{% if match.is_home %}<strong style="color: #333">{{ match.col_home_ppg }}</strong>{% else %}<span style="color:#aaa">{{ match.col_home_ppg }}</span>{% endif %}</td>
-                            <td>{% if not match.is_home %}<strong style="color: #333">{{ match.col_away_ppg }}</strong>{% else %}<span style="color:#aaa">{{ match.col_away_ppg }}</span>{% endif %}</td>
+                            <td style="text-align: left;">{% if match.is_home %}<strong>{{ team.name }}</strong> <span
+                                    style="color:#999">vs</span> {{ match.opponent.name }}{% else %}{{
+                                match.opponent.name }} <span style="color:#999">vs</span> <strong>{{ team.name
+                                    }}</strong>{% endif %}</td>
+                            <td>{% if match.is_home %}<strong style="color: #333">{{ match.col_home_ppg }}</strong>{%
+                                else %}<span style="color:#aaa">{{ match.col_home_ppg }}</span>{% endif %}</td>
+                            <td>{% if not match.is_home %}<strong style="color: #333">{{ match.col_away_ppg
+                                    }}</strong>{% else %}<span style="color:#aaa">{{ match.col_away_ppg }}</span>{%
+                                endif %}</td>
                             <td style="vertical-align: middle;">
                                 <div style="display: flex; align-items: center; justify-content: start;">
-                                    <div style="background: #e0e0e0; height: 6px; width: 60px; border-radius: 3px; overflow: hidden; margin-right: 5px;">
-                                        <div class="js-width" data-width="{{ match.opp_strength_pct }}" style="height: 100%; background: #007bff;"></div>
+                                    <div
+                                        style="background: #e0e0e0; height: 6px; width: 60px; border-radius: 3px; overflow: hidden; margin-right: 5px;">
+                                        <div class="js-width" data-width="{{ match.opp_strength_pct }}"
+                                            style="height: 100%; background: #007bff;"></div>
                                     </div>
                                 </div>
                             </td>
@@ -1286,10 +1350,12 @@
                 </table>
                 <div
                     style="padding: 10px; font-size: 0.8rem; background: #eee; line-height: 1.4; border-top: 1px solid #ddd;">
-                    <span>{{ team.name }}</span> over 2.5 stats indicate a <strong><span>{{ goal_stats.match_total.total|get_key_pct:2.5 }}</span>%</strong> value for the proportion of
+                    <span>{{ team.name }}</span> over 2.5 stats indicate a <strong><span>{{
+                            goal_stats.match_total.total|get_key_pct:2.5 }}</span>%</strong> value for the proportion of
                     matches involving the team that had a total of over 2.5 goals, which is <span>
                         {% if goal_stats.match_total.total|get_key_pct:2.5 < league_over25_pct %} lower {% else %}
-                            higher {% endif %} </span> than the league average value of <span>{{ league_over25_pct }}</span>% of league
+                            higher {% endif %} </span> than the league average value of <span>{{ league_over25_pct
+                                }}</span>% of league
                             matches that the <u>over under stats</u> indicate had a total number of goals over 2.5 this
                             season in <span>{{ league.name }}</span>.
                             <div style="text-align: center; margin-top: 10px;">
@@ -1446,7 +1512,8 @@
                     <tbody>
                         {% for i in "01234"|make_list %}
                         <tr class="{% if forloop.counter|divisibleby:2 %}bg-row-even{% else %}bg-row-odd{% endif %}">
-                            <td style="text-align: left; padding-left: 10px;">Match total goals = {{ i }}{% if i == "4" %}+{% endif %}</td>
+                            <td style="text-align: left; padding-left: 10px;">Match total goals = {{ i }}{% if i == "4"
+                                %}+{% endif %}</td>
                             <td>{{ total_goals_dist.home|get_key_pct:i }}%</td>
                             <td>{{ total_goals_dist.away|get_key_pct:i }}%</td>
                             <td style="font-weight: bold;">{{ total_goals_dist.total|get_key_pct:i }}%</td>
@@ -1573,9 +1640,12 @@
                         </tr>
                     </tbody>
                 </table>
-                {% with one_goal=margin_stats.wins.total|get_item:1 two_goal=margin_stats.wins.total|get_item:2 three_goal=margin_stats.wins.total|get_item:3 four_plus=margin_stats.wins.total|get_item:4 %}
+                {% with one_goal=margin_stats.wins.total|get_item:1 two_goal=margin_stats.wins.total|get_item:2
+                three_goal=margin_stats.wins.total|get_item:3 four_plus=margin_stats.wins.total|get_item:4 %}
                 <div style="padding: 10px; font-size: 0.8rem; background: #eee; line-height: 1.4; color: #333;">
-                    A majority of {{ team.name }}'s wins have been obtained with a one-goal margin ({{ one_goal }} wins), while {{ two_goal|add:three_goal|add:four_plus }} of their wins had a margin of 2 goals or more.
+                    A majority of {{ team.name }}'s wins have been obtained with a one-goal margin ({{ one_goal }}
+                    wins), while {{ two_goal|add:three_goal|add:four_plus }} of their wins had a margin of 2 goals or
+                    more.
                 </div>
                 {% endwith %}
                 <div style="text-align: center; margin-top: 10px; margin-bottom: 10px;">
@@ -1622,17 +1692,20 @@
                     <tbody>
                         <tr style="background: #eee;">
                             <td style="text-align: left; padding-left: 10px;">Points Per Game at Home (PPGH)</td>
-                            <td style="color: #28a745; font-weight: bold; text-align: right; padding-right: 15px;">{{ stats.home.ppg }}</td>
+                            <td style="color: #28a745; font-weight: bold; text-align: right; padding-right: 15px;">{{
+                                stats.home.ppg }}</td>
                         </tr>
                         <tr style="background: #eee;">
                             <td style="text-align: left; padding-left: 10px;">Points Per Game Away (PPGA)</td>
-                            <td style="color: #007bff; font-weight: bold; text-align: right; padding-right: 15px;">{{ stats.away.ppg }}</td>
+                            <td style="color: #007bff; font-weight: bold; text-align: right; padding-right: 15px;">{{
+                                stats.away.ppg }}</td>
                         </tr>
                         <tr style="background: #eee;">
                             <td
                                 style="text-align: left; padding-left: 10px; font-weight: bold; text-decoration: underline;">
                                 Home advantage (PPGH - PPGA)</td>
-                            <td style="color: green; font-weight: bold; text-align: right; padding-right: 15px;">+{{ stats.home.ppg|add:stats.away.ppg|stringformat:"f" }}</td>
+                            <td style="color: green; font-weight: bold; text-align: right; padding-right: 15px;">+{{
+                                stats.home.ppg|add:stats.away.ppg|stringformat:"f" }}</td>
                             <!-- Can't do substraction easily in template filter, handled in View ideally -->
                         </tr>
                     </tbody>
@@ -1857,5 +1930,4 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="{% static 'matches/js/team_detail.js' %}"></script>
 {% endblock %}
