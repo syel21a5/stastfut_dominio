@@ -1578,72 +1578,72 @@ class TeamDetailView(DetailView):
         # --- NEW: Current Streaks ---
         context['streaks'] = self.calculate_streaks(all_matches, team)
 
-            # Helper to calculate stats for a given season and matches
-            def calc_historical(matches_qs, t):
-                stats = {'pld': 0, 'pts': 0, 'gf': 0, 'ga': 0, 'w': 0, 'd': 0, 'l': 0, 'cs': 0, 'fts': 0}
-                if not matches_qs: return stats
-                stats['pld'] = len(matches_qs)
-                for m in matches_qs:
-                    is_home = m.home_team == t
-                    my_score = m.home_score if is_home else m.away_score
-                    opp_score = m.away_score if is_home else m.home_score
-                    
-                    if my_score is None or opp_score is None: continue # Skip played but no score? (status check done in filter)
-                    
-                    stats['gf'] += my_score
-                    stats['ga'] += opp_score
-                    
-                    if my_score > opp_score: 
-                        stats['w'] += 1
-                        stats['pts'] += 3
-                    elif my_score == opp_score: 
-                        stats['d'] += 1
-                        stats['pts'] += 1
-                    else: 
-                        stats['l'] += 1
-                        
-                    if opp_score == 0: stats['cs'] += 1
-                    if my_score == 0: stats['fts'] += 1
+        # Helper to calculate stats for a given season and matches
+        def calc_historical(matches_qs, t):
+            stats = {'pld': 0, 'pts': 0, 'gf': 0, 'ga': 0, 'w': 0, 'd': 0, 'l': 0, 'cs': 0, 'fts': 0}
+            if not matches_qs: return stats
+            stats['pld'] = len(matches_qs)
+            for m in matches_qs:
+                is_home = m.home_team == t
+                my_score = m.home_score if is_home else m.away_score
+                opp_score = m.away_score if is_home else m.home_score
                 
-                # Averages/Percents
-                if stats['pld'] > 0:
-                    stats['avg_pts'] = stats['pts'] / stats['pld']
-                    stats['avg_gf'] = stats['gf'] / stats['pld']
-                    stats['avg_ga'] = stats['ga'] / stats['pld']
-                    stats['w_pct'] = int((stats['w'] / stats['pld']) * 100)
-                    stats['d_pct'] = int((stats['d'] / stats['pld']) * 100)
-                    stats['l_pct'] = int((stats['l'] / stats['pld']) * 100)
-                    stats['cs_pct'] = int((stats['cs'] / stats['pld']) * 100)
-                    stats['fts_pct'] = int((stats['fts'] / stats['pld']) * 100)
-                return stats
-
-            # Current Season Stats (ALWAYS CALCULATED)
-            current_stats = {
-                'overall': calc_historical(all_matches, team),
-                'home': calc_historical([m for m in all_matches if m.home_team == team], team),
-                'away': calc_historical([m for m in all_matches if m.away_team == team], team)
-            }
+                if my_score is None or opp_score is None: continue # Skip played but no score? (status check done in filter)
+                
+                stats['gf'] += my_score
+                stats['ga'] += opp_score
+                
+                if my_score > opp_score: 
+                    stats['w'] += 1
+                    stats['pts'] += 3
+                elif my_score == opp_score: 
+                    stats['d'] += 1
+                    stats['pts'] += 1
+                else: 
+                    stats['l'] += 1
+                    
+                if opp_score == 0: stats['cs'] += 1
+                if my_score == 0: stats['fts'] += 1
             
-            # Historical Statistics (Current vs Prev Season)
-            previous_stats = None
-            season_name = f"{latest_season.year-1}/{latest_season.year}" if latest_season else "-"
-            prev_season_name = "-"
+            # Averages/Percents
+            if stats['pld'] > 0:
+                stats['avg_pts'] = stats['pts'] / stats['pld']
+                stats['avg_gf'] = stats['gf'] / stats['pld']
+                stats['avg_ga'] = stats['ga'] / stats['pld']
+                stats['w_pct'] = int((stats['w'] / stats['pld']) * 100)
+                stats['d_pct'] = int((stats['d'] / stats['pld']) * 100)
+                stats['l_pct'] = int((stats['l'] / stats['pld']) * 100)
+                stats['cs_pct'] = int((stats['cs'] / stats['pld']) * 100)
+                stats['fts_pct'] = int((stats['fts'] / stats['pld']) * 100)
+            return stats
 
-            if past_seasons:
-                prev_season = past_seasons[0] # Assuming ordered by -year
-                
-                # Previous Season Stats
-                prev_matches = Match.objects.filter(
-                    models.Q(home_team=team) | models.Q(away_team=team),
-                    season=prev_season,
-                    status='Finished'
-                )
-                previous_stats = {
-                    'overall': calc_historical(prev_matches, team),
-                    'home': calc_historical([m for m in prev_matches if m.home_team == team], team),
-                    'away': calc_historical([m for m in prev_matches if m.away_team == team], team)
-                }
-                prev_season_name = f"{prev_season.year-1}/{prev_season.year}"
+        # Current Season Stats (ALWAYS CALCULATED)
+        current_stats = {
+            'overall': calc_historical(all_matches, team),
+            'home': calc_historical([m for m in all_matches if m.home_team == team], team),
+            'away': calc_historical([m for m in all_matches if m.away_team == team], team)
+        }
+        
+        # Historical Statistics (Current vs Prev Season)
+        previous_stats = None
+        season_name = f"{latest_season.year-1}/{latest_season.year}" if latest_season else "-"
+        prev_season_name = "-"
+
+        if past_seasons:
+            prev_season = past_seasons[0] # Assuming ordered by -year
+            
+            # Previous Season Stats
+            prev_matches = Match.objects.filter(
+                models.Q(home_team=team) | models.Q(away_team=team),
+                season=prev_season,
+                status='Finished'
+            )
+            previous_stats = {
+                'overall': calc_historical(prev_matches, team),
+                'home': calc_historical([m for m in prev_matches if m.home_team == team], team),
+                'away': calc_historical([m for m in prev_matches if m.away_team == team], team)
+            }
+            prev_season_name = f"{prev_season.year-1}/{prev_season.year}"
             
             context['historical_stats'] = {
                 'current': current_stats,
