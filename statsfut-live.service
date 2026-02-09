@@ -5,14 +5,14 @@ After=network.target mysql.service
 [Service]
 Type=simple
 User=root
-WorkingDirectory=/www/wwwroot/statsfut2.statsfut.com
+WorkingDirectory=/www/wwwroot/statsfut.com
 Environment="PATH=/www/server/panel/pyenv/bin:/usr/local/bin:/usr/bin:/bin"
 Environment="DJANGO_SETTINGS_MODULE=core.settings"
 ExecStart=/www/server/panel/pyenv/bin/python3 run_live_updates.py
 Restart=always
 RestartSec=10
-StandardOutput=append:/www/wwwroot/statsfut2.statsfut.com/logs/live_updates.log
-StandardError=append:/www/wwwroot/statsfut2.statsfut.com/logs/live_updates_error.log
+StandardOutput=append:/www/wwwroot/statsfut.com/logs/live_updates.log
+StandardError=append:/www/wwwroot/statsfut.com/logs/live_updates_error.log
 
 [Install]
 WantedBy=multi-user.target

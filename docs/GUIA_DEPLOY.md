@@ -20,7 +20,7 @@ O processo padrão para fazer alterações é sempre **editar localmente** e dep
 1.  Acesse o terminal do servidor (via SSH ou painel da hospedagem).
 2.  Entre na pasta do projeto:
     ```bash
-    cd /www/wwwroot/statsfut2.statsfut.com
+    cd /www/wwwroot/statsfut.com
     ```
 3.  Baixe as atualizações:
     ```bash

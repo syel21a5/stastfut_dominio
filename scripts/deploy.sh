@@ -27,7 +27,7 @@ python manage.py migrate
 python manage.py collectstatic --noinput
 
 # 6. Restart application (Adjust according to your server setup, e.g., Supervisor, Systemd, Docker)
-# sudo systemctl restart statsfut2
+# sudo systemctl restart statsfut
 # OR
 # docker-compose restart web
 

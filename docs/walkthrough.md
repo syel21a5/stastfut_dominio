@@ -74,7 +74,7 @@ systemctl status statsfut-live.service
 
 ### Ver logs em tempo real
 ```bash
-tail -f /www/wwwroot/statsfut2.statsfut.com/logs/live_updates.log
+tail -f /www/wwwroot/statsfut.com/logs/live_updates.log
 ```
 
 ### Verificar status do serviço

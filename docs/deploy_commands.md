@@ -3,7 +3,7 @@
 ## 1️⃣ Atualizar código no servidor
 
 ```bash
-cd /www/wwwroot/statsfut2.statsfut.com
+cd /www/wwwroot/statsfut.com
 git pull origin main
 ```
 
@@ -30,7 +30,7 @@ systemctl status statsfut-live.service
 
 ```bash
 # Ver logs em tempo real
-tail -f /www/wwwroot/statsfut2.statsfut.com/logs/live_updates.log
+tail -f /www/wwwroot/statsfut.com/logs/live_updates.log
 ```
 
 ---
@@ -61,5 +61,5 @@ systemctl restart statsfut-live
 systemctl stop statsfut-live
 
 # Ver logs de erro
-tail -f /www/wwwroot/statsfut2.statsfut.com/logs/live_updates_error.log
+tail -f /www/wwwroot/statsfut.com/logs/live_updates_error.log
 ```

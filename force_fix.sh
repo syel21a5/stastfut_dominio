@@ -49,7 +49,7 @@ sleep 20
 echo "🔍 Verificando status..."
 if docker compose -f docker-compose.prod.yml ps | grep "Up"; then
     echo "==============================================="
-    echo "   ✅ TUDO PRONTO! ACESSE: http://statsfut2.statsfut.com"
+    echo "   ✅ TUDO PRONTO! ACESSE: http://statsfut.com"
     echo "==============================================="
     echo "Logs do Web:"
     docker compose -f docker-compose.prod.yml logs --tail=10 web
